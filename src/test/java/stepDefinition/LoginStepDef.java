@@ -11,11 +11,12 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-public class LoginStepDef {
+public class LoginStepDef{
 	WebDriver driver;
+	
 	@Given("^user launches the browser and enter the url$")
 	public void user_launches_the_browser_and_enter_the_url() throws Throwable {
-		driver=new ChromeDriver();
+		driver=Hooks.driver;
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get("http://localhost:8888/");
@@ -33,8 +34,8 @@ public class LoginStepDef {
 	public void home_page_should_display() throws Throwable {
 		String actualTitle = driver.getTitle();
 		System.out.println(actualTitle);
-		Assert.assertEquals(actualTitle, "Administrator - Home - vtiger CRM 5 - Commercial Open Source CRM");
-		driver.close();
+		Assert.assertEquals(actualTitle, " Administrator - Home - vtiger CRM 5 - Commercial Open Source CRM");
+		
 	}
 
 	@When("^user enter wrong username and password$")
@@ -53,7 +54,7 @@ public class LoginStepDef {
 		String msg = driver.findElement(By.xpath("//div[@class='errorMessage']")).getText();
 		System.out.println(msg);
 		Assert.assertEquals(msg, "You must specify a valid username and password.");
-		driver.close();
+		
 	}
 
 	@Given("^user launches the browser and enter the url \"([^\"]*)\"$")
